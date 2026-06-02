@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kokoro TTS Local</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="workspace" aria-label="Kokoro text to speech">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Local CPU TTS</p>
+            <h1>Kokoro Voice Studio</h1>
+          </div>
+          <div class="status" id="status">Sẵn sàng</div>
+        </header>
+
+        <div class="editor-shell">
+          <label class="field-label" for="textInput">Nội dung</label>
+          <textarea id="textInput" spellcheck="true">Hello, this is Kokoro running locally.</textarea>
+          <div class="text-meta">
+            <span id="charCount">0 ký tự</span>
+            <button class="ghost-button" id="clearButton" type="button" title="Xóa nội dung">
+              <span aria-hidden="true">×</span>
+              Xóa
+            </button>
+          </div>
+          <button class="primary-button main-generate" id="generateButton" type="button">
+            <span aria-hidden="true">▶</span>
+            Tạo audio từ nội dung trên
+          </button>
+        </div>
+
+        <section class="result-panel" aria-label="Audio result">
+          <audio id="audioPlayer" controls></audio>
+          <div class="result-actions">
+            <a class="download-button disabled" id="downloadLink" href="#" download>
+              <span aria-hidden="true">↓</span>
+              Tải WAV
+            </a>
+            <span id="resultMeta">Chưa có audio mới</span>
+          </div>
+        </section>
+      </section>
+
+      <aside class="controls" aria-label="Settings">
+        <div class="control-group">
+          <label for="langSelect">Ngôn ngữ</label>
+          <select id="langSelect"></select>
+        </div>
+
+        <div class="control-group">
+          <label for="voiceSelect">Giọng</label>
+          <select id="voiceSelect"></select>
+        </div>
+
+        <div class="control-group">
+          <label for="deliverySelect">Kiểu đọc</label>
+          <select id="deliverySelect"></select>
+        </div>
+
+        <button class="secondary-button" id="previewButton" type="button">
+          <span aria-hidden="true">♪</span>
+          Nghe thử giọng đang chọn
+        </button>
+
+        <div class="voice-browser">
+          <div class="history-head">
+            <h2>Danh sách giọng</h2>
+            <span id="voiceCount">0</span>
+          </div>
+          <div id="voiceList" class="voice-list"></div>
+        </div>
+
+        <div class="control-group">
+          <div class="range-row">
+            <label for="speedRange">Tốc độ</label>
+            <output id="speedValue" for="speedRange">1.00x</output>
+          </div>
+          <input id="speedRange" type="range" min="0.5" max="2" value="1" step="0.05" />
+        </div>
+
+        <p class="note" id="note">Tiếng Anh cho kết quả tốt nhất. Kokoro chưa có giọng tiếng Việt native.</p>
+
+        <div class="history">
+          <div class="history-head">
+            <h2>Audio gần đây</h2>
+            <button class="icon-button" id="refreshButton" type="button" title="Tải lại danh sách">↻</button>
+          </div>
+          <div id="historyList" class="history-list"></div>
+        </div>
+      </aside>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

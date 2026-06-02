@@ -1,0 +1,45 @@
+# Dependencies / virtual environments
+node_modules/
+.venv/
+venv/
+env/
+kokoro-tts-local/.venv/
+kokoro-tts-local/.hf_cache/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Generated projects and render outputs
+Projects/
+VoicePreviews/
+_auto_edit_test*/
+_visual_smoke/
+
+# Local media/runtime assets that are too large for GitHub
+BackgroundVideos/
+VoiceSamples/
+
+# Browser profiles / login sessions
+chrome_user_data*/
+veo3-local/chrome_user_data/
+
+# Local app state / secrets
+settings.json
+ui_state.json
+background_video_history.json
+intro_video_history.json
+veo3-local/data_general/config.json
+veo3-local/Workflows/
+
+# Logs / temp
+*.log
+*.tmp
+*.bak
+*.part
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

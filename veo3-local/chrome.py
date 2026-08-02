@@ -33,6 +33,16 @@ CHROME_EXTRA_ARGS = [
 ]
 
 
+def build_cdp_url(host: str, port: int) -> str:
+    """Build a CDP base URL.
+
+    Kept as a helper so the URL is written in exactly one place. A previous
+    version used an f-string with doubled curly braces, which produced an
+    unusable URL like ``{http://127.0.0.1}:9222``.
+    """
+    return "http://" + str(host) + ":" + str(int(port))
+
+
 def _win_hidden_kwargs() -> dict:
     if os.name != "nt":
         return {}
@@ -75,7 +85,7 @@ def is_cdp_ready(cdp_url: str) -> bool:
     try:
         with urlopen(f"{cdp_url}/json/version", timeout=1.5) as response:
             return response.status == 200
-    except (URLError, OSError):
+    except (URLError, OSError, ValueError):
         return False
 
 
@@ -91,7 +101,7 @@ def wait_for_cdp(cdp_url: str, timeout_seconds: int = 30) -> bool:
 def pick_cdp_port_for_new_session(host: str, start_port: int, max_tries: int = 40) -> int:
     base = int(start_port or 9223)
     for p in range(base, base + int(max_tries)):
-        cdp_url = f"http://{host}:{p}"
+        cdp_url = build_cdp_url(host, p)
         if is_cdp_ready(cdp_url):
             continue
         if can_bind_port(host, p):

@@ -12,6 +12,17 @@ from urllib.request import Request, urlopen
 from .config import find_chrome_executable
 
 
+def build_cdp_url(host: str, port: int) -> str:
+    """Build a CDP base URL.
+
+    Kept as a helper so the URL is written in exactly one place. A previous
+    version used an f-string with doubled curly braces, which produced an
+    unusable URL like ``{http://127.0.0.1}:9444`` and made is_cdp_ready()
+    always return False.
+    """
+    return "http://" + str(host) + ":" + str(int(port))
+
+
 def _win_hidden_kwargs() -> dict:
     if os.name != "nt":
         return {}
@@ -36,7 +47,8 @@ def can_bind_port(host: str, port: int) -> bool:
 
 def is_cdp_ready(host: str, port: int) -> bool:
     try:
-        with urlopen(f"http://{host}:{int(port)}/json/version", timeout=1.5) as response:
+        target = build_cdp_url(host, port) + "/json/version"
+        with urlopen(target, timeout=1.5) as response:
             return int(response.status or 0) == 200
     except (URLError, OSError, ValueError):
         return False
@@ -62,7 +74,7 @@ def pick_port(host: str, start_port: int, tries: int = 40) -> int:
 
 
 def open_cdp_tab(host: str, port: int, url: str) -> bool:
-    target = f"http://{host}:{int(port)}/json/new?{quote(url, safe=':/?&=%')}"
+    target = build_cdp_url(host, port) + "/json/new?" + quote(url, safe=":/?&=%")
     for method in ("PUT", "GET"):
         try:
             request = Request(target, method=method)
@@ -96,7 +108,7 @@ class ChromeSession:
 
     @property
     def cdp_url(self) -> str:
-        return f"http://{self.host}:{self.port}"
+        return build_cdp_url(self.host, self.port)
 
     def profile_dir(self) -> Path:
         root = Path(str(self.settings.get("chrome_profile_root") or "chrome_user_data_chatgpt"))

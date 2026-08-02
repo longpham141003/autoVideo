@@ -19,3 +19,8 @@ imageio-ffmpeg>=0.4.9
 
 # --- Cau hinh (core/config.py) ---
 PyYAML>=6.0
+
+# --- Ma hoa mat khau luu local (core/secrets.py) ---
+# Khong bat buoc: neu thieu, core/secrets.py tu fallback sang che do
+# obfuscation yeu hon va bao lai qua backend_name().
+cryptography>=42.0

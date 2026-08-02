@@ -7,8 +7,13 @@ from urllib.parse import quote
 from settings_manager import SettingsManager
 
 
-# Endpoint template: projectId must be injected per request
-URL_GENERATE_IMAGES_TEMPLATE = "https://aisandbox-pa.googleapis.com/v1/projects/{project_id}/flowMedia:batchGenerateImages"
+# Endpoint: projectId must be injected per request.
+# NOTE: built by concatenation on purpose. The previous version wrapped the
+# whole URL in doubled curly braces, which .format() turned into literal
+# braces and produced an unusable URL.
+URL_GENERATE_IMAGES_BASE = "https://aisandbox-pa.googleapis.com/v1/projects/"
+URL_GENERATE_IMAGES_SUFFIX = "/flowMedia:batchGenerateImages"
+URL_GENERATE_IMAGES_TEMPLATE = URL_GENERATE_IMAGES_BASE + "{project_id}" + URL_GENERATE_IMAGES_SUFFIX
 URL_UPLOAD_IMAGE = "https://aisandbox-pa.googleapis.com/v1/flow/uploadImage"
 
 IMAGE_ASPECT_RATIO_LANDSCAPE = "IMAGE_ASPECT_RATIO_LANDSCAPE"
@@ -239,7 +244,7 @@ def build_generate_image_payload(
 
 def build_generate_image_url(project_id):
 	encoded_project = quote(str(project_id or ""), safe="")
-	return URL_GENERATE_IMAGES_TEMPLATE.format(project_id=encoded_project)
+	return URL_GENERATE_IMAGES_BASE + encoded_project + URL_GENERATE_IMAGES_SUFFIX
 
 
 def _send_request_with_token(url, payload, token, method="POST", cookie=None):
@@ -480,4 +485,3 @@ def parse_media_from_response(response_body):
 
 	_collect(body_json)
 	return medias
-

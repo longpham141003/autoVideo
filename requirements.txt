@@ -1,0 +1,21 @@
+# Dependencies cua master tool (app/ + veo3-local/).
+#
+# Cai dat:
+#   pip install -r requirements.txt
+#   playwright install chromium
+#
+# Luu y: phan Text to Voice (Kokoro) dung venv rieng trong
+# kokoro-tts-local/.venv, setup bang kokoro-tts-local/setup.ps1.
+# Khong khai bao o day de tranh dung do phien ban torch.
+
+# --- Giao dien ---
+PyQt6>=6.6
+
+# --- Dieu khien Chrome (ChatGPT web + VEO3/Flow) ---
+playwright>=1.40
+
+# --- Xu ly video/anh ---
+imageio-ffmpeg>=0.4.9
+
+# --- Cau hinh (core/config.py) ---
+PyYAML>=6.0

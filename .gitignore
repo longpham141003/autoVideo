@@ -32,6 +32,10 @@ intro_video_history.json
 veo3-local/data_general/config.json
 veo3-local/Workflows/
 
+# Dev screenshots / scratch captures
+_ui_check_*.png
+ui_leftbar_fix.png
+
 # Logs / temp
 *.log
 *.tmp

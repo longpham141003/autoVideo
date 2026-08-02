@@ -346,4 +346,3 @@ def parse_media_from_response(response_body):
 
 	_collect(body_json)
 	return medias
-

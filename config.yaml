@@ -1,0 +1,60 @@
+# ============================================================
+# autoVideo - Cấu hình toàn cục (port từ review-phim)
+# ============================================================
+
+project:
+  output_dir: "Projects"
+  log_dir: "logs"
+  temp_dir: "temp"
+
+veo3:
+  multi_video: 3
+  output_count: 1
+  aspect_ratio: "16:9"
+  create_image_model: "Nano Banana pro"
+  download_mode: "720"
+  wait_gen_image: 15
+  retry_with_error: 5
+  wait_resend_image: 30
+  token_retry: 5
+  token_retry_delay: 3
+  clear_data_token_image: 50
+  clear_data_wait: 4
+  image_response_timeout: 80
+  seed_mode: "Random"
+  seed_value: 9797
+
+llm:
+  provider: "gemini"
+  model: "gemini-2.5-flash"
+  temperature: 0.9
+  max_tokens: 8192
+  batch_size: 20
+  max_retries: 5
+
+tts:
+  provider: "kokoro"
+  language: "en"
+  voice: "af_heart"
+  speed: 1.0
+  delivery_style: "expressive"
+
+video:
+  resolution: "1920x1080"
+  fps: 30
+  layout: "character_drama"
+  default_character_image: ""
+  subtitle_font: "Arial"
+  subtitle_size: 24
+  subtitle_color: "#FFFFFF"
+  subtitle_outline: "#000000"
+
+shorts:
+  enabled: true
+  hook_test_blocks: 3
+  block_duration: 8
+  main_trailer_blocks: 5
+
+api_keys:
+  gemini: ""
+  openai: ""
